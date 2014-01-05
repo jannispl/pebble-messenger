@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="app_name">Pebble Messenger</string>
+  <string name="message_append">Sent from my Pebble watch</string>
+  <string name="add_quick_response">Add quick response</string>
+  <string name="edit_quick_responses">Edit quick responses</string>
+  <string name="add_quick_response_help">Provide a message to add as quick response (max 100 characters)</string>
+  <string name="edit_quick_response">Edit quick response</string>
+  <string name="edit">Edit</string>
+  <string name="delete">Delete</string>
+  <string name="about">About</string>
+  <string name="check_for_updates">Check for updates</string>
+  <string name="settings">Settings</string>
+</resources>

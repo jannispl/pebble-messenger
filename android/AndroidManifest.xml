@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.mavedev.PebbleMessenger"
+    android:versionCode="12"
+    android:versionName="2.1" >
+
+    <uses-sdk
+        android:minSdkVersion="11"
+        android:targetSdkVersion="17" />
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <!-- Keeps the processor from sleeping when a message is received. -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_SMS"/>
+    <uses-permission android:name="android.permission.WRITE_SMS"/>
+    <uses-permission android:name="android.permission.SEND_SMS"/>
+
+    <application
+        android:allowBackup="true"
+        android:label="@string/app_name" >
+        <activity
+            android:name="com.mavedev.PebbleMessenger.MainActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.mavedev.PebbleMessenger.QuickResponsesManager"
+            android:label="@string/edit_quick_responses"
+            android:parentActivityName="com.mavedev.PebbleMessenger.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.mavedev.PebbleMessenger.MainActivity" />
+        </activity>
+        <activity
+            android:name="com.mavedev.PebbleMessenger.SettingsActivity"
+            android:parentActivityName="com.mavedev.PebbleMessenger.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.mavedev.PebbleMessenger.MainActivity" />
+        </activity>
+        <activity
+            android:name="com.mavedev.PebbleMessenger.AboutActivity"
+            android:label="@string/about"
+            android:parentActivityName="com.mavedev.PebbleMessenger.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.mavedev.PebbleMessenger.MainActivity" />
+        </activity>
+
+        <service android:name="com.mavedev.PebbleMessenger.MessengerService" />
+
+        <receiver android:name="com.mavedev.PebbleMessenger.PebbleDataReceiver" >
+            <intent-filter>
+                <action android:name="com.getpebble.action.app.RECEIVE" />
+                <action android:name="com.getpebble.action.app.RECEIVE_ACK" />
+                <action android:name="com.getpebble.action.app.RECEIVE_NACK" />
+            </intent-filter>
+        </receiver>
+    </application>
+
+</manifest>
