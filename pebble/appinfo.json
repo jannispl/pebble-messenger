@@ -1,0 +1,23 @@
+{
+  "uuid": "73f27a7a-cbb3-4d31-b460-7d37fd099b35",
+  "shortName": "Messenger",
+  "longName": "Pebble Messenger",
+  "companyName": "mavedev.com",
+  "versionCode": 9,
+  "versionLabel": "1.8",
+  "watchapp": {
+    "watchface": false
+  },
+  "appKeys": {
+    "dummy": 0
+  },
+  "resources": {
+  	"media": [
+        {
+          "type": "png",
+          "name": "IMAGE_APPICON",
+          "file": "images/appicon.png"
+        }
+      ]
+  }
+}
