@@ -14,6 +14,7 @@ import android.app.ActivityManager.RunningAppProcessInfo;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -128,13 +129,14 @@ public class WhatsAppUtils
 		catch (Exception e)
 		{
 			e.printStackTrace();
-		}
-
-		File destFile = new File(to);
-		if (!destFile.exists() || !destFile.canRead())
-		{
 			return false;
 		}
+
+		/*File destFile = new File(to);
+		if (!destFile.exists())
+		{
+			return false;
+		}*/
 		
 		return true;
 	}
@@ -230,7 +232,7 @@ public class WhatsAppUtils
 		return al;
 	}
 
-	public static void sendMessage(Context cx, String receiverNumber, String message)
+	public static boolean sendMessage(Context cx, String receiverNumber, String message)
 	{
 		RootTools.debugMode = true;
 		
@@ -238,7 +240,7 @@ public class WhatsAppUtils
 		if (err != null)
 		{
 			Toast.makeText(cx, "sendMessage failed - " + err, Toast.LENGTH_LONG).show();
-			return;
+			return false;
 		}
 		
 		++msg_counter;
@@ -316,7 +318,7 @@ public class WhatsAppUtils
 			if (whatsappUid == -1)
 			{
 				Toast.makeText(cx, "WhatsApp not installed ?", Toast.LENGTH_LONG).show();
-				return;
+				return false;
 			}
 		}
 
@@ -330,7 +332,7 @@ public class WhatsAppUtils
 		if (!copyDatabase(DB_LOCATION, destPath, myUid))
 		{
 			Toast.makeText(cx, "sendMessage - unable to copy database", Toast.LENGTH_LONG).show();
-			return;
+			return false;
 		}
 
 		SQLiteDatabase db;
@@ -344,7 +346,7 @@ public class WhatsAppUtils
 
 			Toast.makeText(cx, "sendMessage failed - " + e.toString(), Toast.LENGTH_LONG)
 					.show();
-			return;
+			return false;
 		}
 
 		long messageTableId = -1;
@@ -355,6 +357,9 @@ public class WhatsAppUtils
 		catch (SQLException e)
 		{
 			e.printStackTrace();
+			
+			db.close();
+			return false;
 		}
 
 		if (messageTableId != -1)
@@ -371,6 +376,12 @@ public class WhatsAppUtils
 				e.printStackTrace();
 			}
 		}
+		else
+		{
+			Log.d("WhatsAppUtils", "err: no messages table");
+			db.close();
+			return false;
+		}
 
 		db.close();
 
@@ -379,10 +390,9 @@ public class WhatsAppUtils
 
 		mActivityManager.killBackgroundProcesses("com.whatsapp");
 
-		/* Intent i =
-		 * getApplicationContext().getPackageManager().getLaunchIntentForPackage("com.whatsapp");
-		 * i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-		 * startActivity(i); */
+		Intent i = cx.getPackageManager().getLaunchIntentForPackage("com.whatsapp");
+		i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+		cx.startActivity(i);
 
 		/* ConnectivityManager mgr =
 		 * (ConnectivityManager)cx.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -401,5 +411,7 @@ public class WhatsAppUtils
 		 * i.setClassName("com.whatsapp", "com.whatsapp.accountsync.PerformSyncManager");
 		 * i.setAction("com.whatsapp.accountsync.intent.PERFORM_SYNC");
 		 * cx.sendBroadcast(i); */
+		
+		return true;
 	}
 }

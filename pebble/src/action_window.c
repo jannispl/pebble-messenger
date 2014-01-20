@@ -48,10 +48,10 @@ int16_t action_menu_get_cell_height_callback(MenuLayer *me, MenuIndex *cell_inde
 {
 	if (cell_index->section == 0)
 	{
-		return 44;
+		return 52;
 	}
 	
-	return 24;
+	return 42;
 }
 
 // Here we draw what each header is

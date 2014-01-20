@@ -3,6 +3,7 @@
 #include "sms.h"
 #include "conversation.h"
 #include "action_window.h"
+#include "alert.h"
 
 Window *main_window;
 MenuLayer *feature_menu_layer;
@@ -86,6 +87,23 @@ void out_fail_handler(DictionaryIterator *failed, AppMessageResult reason, void 
 	}
 }
 
+void handle_sent_confirmation(DictionaryIterator *iter)
+{
+    Tuple *success_tuple = dict_find(iter, KEY_SUCCESS);
+    if (!success_tuple)
+        return;
+    
+    uint8_t success = success_tuple->value->uint8;
+    if (success == 1)
+    {
+        show_alert("Message sent!");
+    }
+    else
+    {
+        show_alert("Failed to send message");
+    }
+}
+
 void in_received_handler(DictionaryIterator *iter, void *context)
 {
 	// HACK
@@ -109,6 +127,10 @@ void in_received_handler(DictionaryIterator *iter, void *context)
 		case ACTION_REQUEST_QUICK_RESPONSES:
 			action_window_handle_quick_responses(iter);
 			break;
+            
+        case ACTION_SENT_CONFIRMATION:
+            handle_sent_confirmation(iter);
+            break;
 	}
 }
 

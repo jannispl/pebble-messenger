@@ -60,7 +60,7 @@ void whatsapp_menu_draw_header_callback(GContext* ctx, const Layer *cell_layer, 
 
 int16_t whatsapp_menu_get_cell_height_callback(MenuLayer *me, MenuIndex *cell_index, void *data)
 {
-	return 25;
+	return 48;
 }
 
 void whatsapp_menu_draw_row_callback(GContext* ctx, const Layer *cell_layer, MenuIndex *cell_index, void *data)
@@ -215,6 +215,8 @@ void whatsapp_out_fail_handler(DictionaryIterator *failed, AppMessageResult reas
 		whatsapp_load_fail = true;
 		
 		menu_layer_reload_data(whatsapp_conv_menu_layer);
+        
+        whatsapp_request_conversations();
 	}
 	else
 	{

@@ -16,6 +16,7 @@ public class PebbleProtocol
 	public static final int KEY_VERSION_CODE = 0x07;
 	public static final int KEY_NAME = 0x08;
 	public static final int KEY_REQUEST_ID = 0x09;
+	public static final int KEY_SUCCESS = 0x0A;
 
 	//public static final int KEY_CONVERSATION = 0x7F;
 
@@ -26,4 +27,5 @@ public class PebbleProtocol
 	public static final int ACTION_SMS_SEND_MESSAGE = 0x05;
 	public static final int ACTION_SMS_SEND_QUICK_RESPONSE = 0x06;
 	public static final int ACTION_SMS_REQUEST_CONVERSATIONS = 0x07;
+	public static final int ACTION_SENT_CONFIRMATION = 0x08;
 }

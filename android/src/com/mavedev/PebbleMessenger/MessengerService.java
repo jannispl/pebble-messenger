@@ -322,7 +322,12 @@ public class MessengerService extends Service
 							.getString(R.string.message_append));
 		}
 
-		WhatsAppUtils.sendMessage(this, number, message);
+		boolean res = WhatsAppUtils.sendMessage(this, number, message);
+		
+		PebbleDictionary data = new PebbleDictionary();
+		data.addUint8(PebbleProtocol.KEY_ACTION, (byte) PebbleProtocol.ACTION_SENT_CONFIRMATION);
+		data.addUint8(PebbleProtocol.KEY_SUCCESS, res ? (byte)1 : (byte)0);
+		messageManager.offer(this, data);
 	}
 
 	private void handleSendMessage(String number, String message)

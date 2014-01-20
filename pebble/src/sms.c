@@ -60,7 +60,7 @@ void sms_menu_draw_header_callback(GContext* ctx, const Layer *cell_layer, uint1
 
 int16_t sms_menu_get_cell_height_callback(MenuLayer *me, MenuIndex *cell_index, void *data)
 {
-	return 25;
+	return 48;
 }
 
 void sms_menu_draw_row_callback(GContext* ctx, const Layer *cell_layer, MenuIndex *cell_index, void *data)

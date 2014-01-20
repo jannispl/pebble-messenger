@@ -3,8 +3,8 @@
   "shortName": "Messenger",
   "longName": "Pebble Messenger",
   "companyName": "mavedev.com",
-  "versionCode": 9,
-  "versionLabel": "1.8",
+  "versionCode": 10,
+  "versionLabel": "1.9",
   "watchapp": {
     "watchface": false
   },
@@ -16,7 +16,8 @@
         {
           "type": "png",
           "name": "IMAGE_APPICON",
-          "file": "images/appicon.png"
+          "file": "images/appicon.png",
+          "menuIcon": true
         }
       ]
   }
